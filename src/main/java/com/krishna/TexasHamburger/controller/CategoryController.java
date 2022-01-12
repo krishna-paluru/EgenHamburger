@@ -74,5 +74,10 @@ public class CategoryController {
         categoryService.deleteCategoryById(id);
         return "category deleted !!";
     }
+    @GetMapping("/test")
+    public String test()
+    {
+        return "Hello There!!";
+    }
 
 }
