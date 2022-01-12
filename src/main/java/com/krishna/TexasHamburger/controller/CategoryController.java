@@ -72,7 +72,7 @@ public class CategoryController {
     public String deleteCategory(@PathVariable Long id) throws ResourceNotFoundException {
         logger.trace("delete Category Method accessed");
         categoryService.deleteCategoryById(id);
-        return "category deleted";
+        return "category deleted !!";
     }
 
 }
