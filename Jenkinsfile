@@ -11,8 +11,8 @@ node{
     stage("Run containers on Server")
     {
         try{
-            sh "docker-compose down"
-            sh "docker system prune"
+//             sh "docker-compose down"
+//             sh "docker system prune"
             sh " docker-compose up --build -d"
         }
         catch(e)
