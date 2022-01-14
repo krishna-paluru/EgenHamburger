@@ -1,5 +1,4 @@
 package com.krishna.TexasHamburger.config;
-
 import com.krishna.TexasHamburger.model.TodaysOrder;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.LongSerializer;
