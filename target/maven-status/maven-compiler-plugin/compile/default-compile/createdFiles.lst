@@ -12,7 +12,6 @@ com\krishna\TexasHamburger\config\InterceptorConfig.class
 com\krishna\TexasHamburger\service\LocationsService.class
 com\krishna\TexasHamburger\model\LocationMenu.class
 com\krishna\TexasHamburger\Exception\FormatException.class
-com\krishna\TexasHamburger\config\WebSecurityConfig.class
 com\krishna\TexasHamburger\model\Category.class
 com\krishna\TexasHamburger\model\Address.class
 com\krishna\TexasHamburger\service\LocationMenuService.class

@@ -2,6 +2,7 @@ package com.krishna.TexasHamburger.Interceptor;
 import com.krishna.TexasHamburger.model.ExecutionTime;
 
 import com.krishna.TexasHamburger.repository.ExecutionTimeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -11,8 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class ExecutionTimeInterceptor implements HandlerInterceptor {
-    private final ExecutionTimeRepository executionTimeRepository;
-    private final ExecutionTime executionTime;
+    @Autowired
+    private  ExecutionTimeRepository executionTimeRepository;
+    @Autowired
+    private  ExecutionTime executionTime;
+
     public ExecutionTimeInterceptor(final ExecutionTimeRepository executionTimeRepository,
                                     final ExecutionTime executionTime)
     {
