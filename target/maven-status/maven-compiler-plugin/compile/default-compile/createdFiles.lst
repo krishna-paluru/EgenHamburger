@@ -16,6 +16,7 @@ com\krishna\TexasHamburger\model\Category.class
 com\krishna\TexasHamburger\model\Address.class
 com\krishna\TexasHamburger\service\LocationMenuService.class
 com\krishna\TexasHamburger\assembler\OrderModelAssembler.class
+com\krishna\TexasHamburger\service\impl\DefaultUserService.class
 com\krishna\TexasHamburger\service\UserService.class
 com\krishna\TexasHamburger\service\impl\ReservationServiceImpl.class
 com\krishna\TexasHamburger\model\Reservation.class
