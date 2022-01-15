@@ -45,7 +45,17 @@ public class CategoryController {
     public Page<Category> getAllCategory(@PathVariable int offset)
     {
         logger.trace("add getAllCategories Method accessed");
-        return categoryService.getAll(offset,2);
+        Page<Category> categoryPage =  categoryService.getAll(offset,2);
+        if(categoryPage.getSize()==0)
+        {
+            try{
+                throw new ResourceNotFoundException("No categories found !!");
+            }
+            catch(ResourceNotFoundException e){
+                e.printStackTrace();
+            }
+        }
+        return categoryPage;
     }
 
     @ApiOperation(value = "To Update the Category", response = Category.class)
