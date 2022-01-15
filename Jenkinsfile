@@ -14,7 +14,7 @@ node{
         try{
             sh "docker-compose down"
             sh "docker system prune"
-            sh " docker-compose up --build -d"
+//             sh " docker-compose up --build -d"
         }
         catch(e)
         {
