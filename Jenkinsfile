@@ -12,6 +12,7 @@ node{
     stage("Run containers on Server")
     {
         try{
+            sh "mvn clean install -DskipTests"
             sh "docker-compose down"
             sh "docker system prune"
             sh " docker-compose up --build -d"
