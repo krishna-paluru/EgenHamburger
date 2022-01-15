@@ -44,9 +44,9 @@ public class CategoryController {
     @GetMapping("/getAll/{offset}")
     public Page<Category> getAllCategory(@PathVariable int offset)
     {
-        logger.trace("add getAllCategories Method accessed");
+        logger.trace("add getAll Categories Method accessed");
         Page<Category> categoryPage =  categoryService.getAll(offset,2);
-        if(categoryPage.getSize()==0)
+        if(categoryPage.getSize() == 0)
         {
             try{
                 throw new ResourceNotFoundException("No categories found !!");
