@@ -16,7 +16,6 @@ com\krishna\TexasHamburger\model\Category.class
 com\krishna\TexasHamburger\model\Address.class
 com\krishna\TexasHamburger\service\LocationMenuService.class
 com\krishna\TexasHamburger\assembler\OrderModelAssembler.class
-com\krishna\TexasHamburger\service\impl\DefaultUserService.class
 com\krishna\TexasHamburger\service\UserService.class
 com\krishna\TexasHamburger\service\impl\ReservationServiceImpl.class
 com\krishna\TexasHamburger\model\Reservation.class
@@ -58,7 +57,6 @@ com\krishna\TexasHamburger\model\User.class
 com\krishna\TexasHamburger\repository\OrderDetailsRepository.class
 com\krishna\TexasHamburger\model\TodaysOrder.class
 com\krishna\TexasHamburger\controller\UserController.class
-com\krishna\TexasHamburger\model\CustomUser.class
 com\krishna\TexasHamburger\controller\MenuItemsController.class
 com\krishna\TexasHamburger\service\OpenHourService.class
 com\krishna\TexasHamburger\TexasHamburgerApplication.class
