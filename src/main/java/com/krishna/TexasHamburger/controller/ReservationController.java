@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -26,10 +27,10 @@ public class ReservationController {
             @ApiResponse(code = 204, message = "MenuItem Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
-    @PostMapping ("/makeReservations/{locationId}")
-    public void makeReservations(@RequestBody Reservation reservation ,@PathVariable Long locationId) throws ResourceNotFoundException {
+    @PostMapping ("/makeReservations/{locationId}/{date}")
+    public void makeReservations(@RequestBody Reservation reservation , @PathVariable Long locationId, @PathVariable String date) throws ResourceNotFoundException {
         logger.trace("makeReservations method accessed");
-        reservationService.bookReservation(reservation,locationId);
+        reservationService.bookReservation(reservation,locationId, LocalDate.parse(date));
     }
 
 @ApiOperation(value = "To Update a reservation to the particular location ", response = Reservation.class)
@@ -81,7 +82,19 @@ public class ReservationController {
     public List<Reservation> getReservationByLocation(@PathVariable Long locationId)
     {
         logger.trace("getReservationByLocation method accessed");
-        return reservationService.getReservationsByLocation(locationId);
+        List<Reservation> reservations =  reservationService.getReservationsByLocation(locationId);
+        try{
+            if(reservations.size() == 0 )
+            {
+                throw new ResourceNotFoundException("No Reservations with the Location Id-" + locationId);
+            }
+            else{
+                return reservations;
+            }
+        } catch (ResourceNotFoundException e) {
+            e.printStackTrace();
+        }
+        return reservations;
     }
 
 }

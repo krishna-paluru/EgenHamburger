@@ -38,7 +38,7 @@ public class LocationsController {
     })
     @GetMapping("/get/{locationId}")
     @ResponseBody
-    public Locations getLocationById(@PathVariable Long locationId)  {
+    public Locations getLocationById(@PathVariable Long locationId) throws ResourceNotFoundException {
         logger.trace("getLocationById method accessed");
         Locations locations = locationsService.getLocationById(locationId)
                 .orElseThrow(() -> new RestaurantNotFoundException(locationId));
@@ -107,6 +107,7 @@ public class LocationsController {
         logger.trace("updateLocations method accessed");
         return locationsService.updateLocation(location);
     }
+
 
 
 

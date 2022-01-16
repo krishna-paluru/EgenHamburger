@@ -13,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/TexasHamburger")
 public class CategoryController {
@@ -79,10 +81,12 @@ public class CategoryController {
     })
     @Transactional
     @DeleteMapping("/deleteById/{id}")
-    public String deleteCategory(@PathVariable Long id) throws ResourceNotFoundException {
+    public Category deleteCategory(@PathVariable Long id) throws ResourceNotFoundException {
         logger.trace("delete Category Method accessed");
-        categoryService.deleteCategoryById(id);
-        return "category deleted";
+        Category category = categoryService.deleteCategoryById(id)
+                .orElseThrow(()->new ResourceNotFoundException("No location with Id -"+ id));
+        return category;
+
     }
 
 

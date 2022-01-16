@@ -1,9 +1,11 @@
 package com.krishna.TexasHamburger.service.impl;
 
 import com.krishna.TexasHamburger.Exception.FormatException;
+import com.krishna.TexasHamburger.Exception.ResourceNotFoundException;
 import com.krishna.TexasHamburger.model.*;
 import com.krishna.TexasHamburger.repository.*;
 import com.krishna.TexasHamburger.service.LocationsService;
+import com.krishna.TexasHamburger.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,6 +32,10 @@ public class LocationsServiceImpl implements LocationsService {
     private OrderDetailsRepository orderDetailsRepository;
     @Autowired
     private OpenHourRepository openHourRepository;
+    @Autowired
+    private SlotsAvailableRepository slotsAvailableRepository;
+    @Autowired
+    private OrderService orderService;
     @Override
     public Locations addLocations(Locations location) throws FormatException {
         try {
@@ -50,41 +56,24 @@ public class LocationsServiceImpl implements LocationsService {
     }
 
     @Override
-    public Optional<Locations> getLocationById(Long id)  {
-        Optional<Locations> location = locationsRepository.findById(id);
+    public Optional<Locations> getLocationById(Long id) throws ResourceNotFoundException {
+        Optional<Locations> location = Optional.ofNullable(locationsRepository.findById(id)
+                .orElseThrow(() -> (new ResourceNotFoundException("No Location with Id-" + id))));
         return location;
     }
-
-//    @Override
-//    public String bookATable(Long locationId) {
-//
-//        Optional<Locations> restaurant = getLocationById(locationId);
-//        if(restaurant.isPresent()){
-//            int slotsAvailable = restaurant.get().getSlotsAvailable();
-//            if(slotsAvailable > 0) {
-//                restaurant.get().setSlotsAvailable(slotsAvailable - 1);
-//                locationsRepository.save(restaurant.get());
-//                return "success";
-//            }else{
-//                return "Restaurant fully booked. Please try for an alternate day.";
-//            }
-//        }else{
-//            return "Failed to book a table. Please try later !!!";
-//        }
-//    }
 
     @Override
     public void deleteLocation(Long id) {
         List<LocationMenu> locationMenus = locationMenuRepository.getLocationMenuByLocations_LocationId(id);
         locationMenus.stream().forEach(x->locationMenuRepository.deleteLocationMenuByLocations_LocationId(id));
         List<Order> orders = orderRepository.getOrdersByLocation_LocationId(id);
-        orders.stream().forEach(x-> {
-            orderDetailsRepository.deleteOrderDetailsByOrder_OrderId(x.getOrderId());
-            orderRepository.deleteOrderByLocation_LocationId(id);});
+        orders.stream().forEach(x->orderService.cancelOrder(x.getOrderId()));
         List<Reservation> reservations = reservationRepository.getReservationByLocation_LocationId(id);
         reservations.stream().forEach(x->reservationRepository.deleteReservationByLocation_LocationId(id));
         List<OpenHour> openHours = openHourRepository.getOpenHourByLocations_LocationId(id);
         openHours.stream().forEach(x->openHourRepository.deleteOpenHourByLocations_LocationId(id));
+        List<SlotsAvailable> slotsAvailable = slotsAvailableRepository.getSlotsAvailableByLocations_LocationId(id);
+        slotsAvailable.stream().forEach(x->slotsAvailableRepository.deleteById(x.getSlotsId()));
         locationsRepository.deleteById(id);
     }
 

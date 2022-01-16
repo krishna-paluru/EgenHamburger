@@ -12,7 +12,7 @@ import java.util.Set;
 public interface LocationsService {
     Locations addLocations(Locations location) throws FormatException;
     List<Locations> getLocations();
-    Optional<Locations> getLocationById(Long id);
+    Optional<Locations> getLocationById(Long id) throws ResourceNotFoundException;
      void deleteLocation(Long id);
 
     Page<Locations> getLocations(Integer offset, int pageSize);

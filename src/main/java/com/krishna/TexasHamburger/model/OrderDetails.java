@@ -40,6 +40,18 @@ public class OrderDetails implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "OrderDetails{" +
+                "orderDetailId=" + orderDetailId +
+                ", order=" + order +
+                ", item=" + item +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", unitPrice=" + unitPrice +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

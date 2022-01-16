@@ -7,10 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CategoryService {
     public Category addCategory(Category category) throws FormatException;
-    public String deleteCategoryById(Long id) throws ResourceNotFoundException;
+    public Optional<Category> deleteCategoryById(Long id);
     public  List<Category> getAll();
 
     public void  updateCategory(Category category) throws FormatException;

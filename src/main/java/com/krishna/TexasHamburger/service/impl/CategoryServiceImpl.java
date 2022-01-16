@@ -36,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
     }
-    public String deleteCategoryById(Long id) throws ResourceNotFoundException {
+    public Optional<Category> deleteCategoryById(Long id)  {
         Optional<Category> category = categoryRepository.findById(id);
         if(category.isPresent()) {
             List<MenuItems> menuItems = menuItemsRepository.getMenuItemsByCategory_CategoryId(id);
@@ -46,11 +46,7 @@ public class CategoryServiceImpl implements CategoryService {
             }
             categoryRepository.deleteById(id);
         }
-        else{
-            throw new ResourceNotFoundException("No category with the id-" + id);
-        }
-
-        return "Category Deleted";
+        return category;
     }
 
     @Override

@@ -46,4 +46,12 @@ public class LocationMenu implements Serializable {
 //    public void setMenuItems(MenuItems menuItems) {
 //        this.menuItems = menuItems;
 //    }
+
+    @Override
+    public String toString() {
+        return "LocationMenu{" +
+                "id=" + id +
+                ", menuItems=" + menuItems +
+                '}';
+    }
 }

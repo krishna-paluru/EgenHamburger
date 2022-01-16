@@ -73,11 +73,11 @@ public class Order implements Serializable {
     public String toString() {
         return "Order{" +
                 "orderId=" + orderId +
-                ", location=" + location +
+//                ", location=" + location +
                 ", user=" + user +
                 ", totalPrice=" + totalPrice +
                 ", date=" + date +
-                ", orderDetails=" + orderDetails +
+//                ", orderDetails=" + orderDetails +
                 '}';
     }
 

@@ -45,6 +45,13 @@ public class Locations implements Serializable {
         @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
         Set<OpenHour> OpenHour = new HashSet<>();
 
+        @OneToMany(fetch = FetchType.LAZY, mappedBy = "locations", cascade = CascadeType.PERSIST)
+        @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+        @Fetch(FetchMode.SUBSELECT)
+        @JsonIgnore
+        @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+        Set<SlotsAvailable> slotsAvailables = new HashSet<>();
+
 //        @Override
 //        public int hashCode() {
 //                final int prime = 31;
