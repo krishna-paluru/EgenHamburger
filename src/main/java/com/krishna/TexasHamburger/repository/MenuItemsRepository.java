@@ -17,6 +17,7 @@ public interface MenuItemsRepository extends JpaRepository<MenuItems,Long> {
 
     @Query(value = "SELECT  a from menuItems a where a.itemId=?1")
     public  MenuItems getMenuItemById(Long id);
+    MenuItems getMenuItemsByItemName(String name);
 
 
 }

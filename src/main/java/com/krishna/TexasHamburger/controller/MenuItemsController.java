@@ -1,5 +1,6 @@
 package com.krishna.TexasHamburger.controller;
 import com.krishna.TexasHamburger.Exception.FormatException;
+import com.krishna.TexasHamburger.Exception.ResourceAlreadyExists;
 import com.krishna.TexasHamburger.Exception.ResourceNotFoundException;
 import com.krishna.TexasHamburger.model.MenuItems;
 import com.krishna.TexasHamburger.service.MenuItemsService;
@@ -25,12 +26,11 @@ public class MenuItemsController {
     @ApiOperation(value = "To Add MenuItems ", response = MenuItems.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "MenuItem Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @Transactional
     @PostMapping("/addItems")
-    public void addItem(@RequestBody MenuItems menuItems) throws FormatException {
+    public void addItem(@RequestBody MenuItems menuItems) throws  ResourceAlreadyExists {
         logger.trace("addItem method accessed");
         menuItemsService.addMenuItems(menuItems);
     }
@@ -38,7 +38,6 @@ public class MenuItemsController {
     @ApiOperation(value = "To Get  MenuItems by Category ", response = MenuItems.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "MenuItem Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @GetMapping("/getItemById/{id}/{offset}")
@@ -55,7 +54,6 @@ public class MenuItemsController {
     @ApiOperation(value = "To get a Particular menuItem by Id ", response = MenuItems.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "MenuItem Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @GetMapping("/getByMenuItemId/{id}")
@@ -73,7 +71,6 @@ public class MenuItemsController {
     @ApiOperation(value = "To get all MenuItems ", response = MenuItems.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "MenuItem Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @GetMapping("/getAllItems/{offset}")
@@ -86,7 +83,6 @@ public class MenuItemsController {
     @ApiOperation(value = "To delete MenuItems by Id ", response = MenuItems.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "MenuItem Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @Transactional

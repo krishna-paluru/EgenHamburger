@@ -1,5 +1,6 @@
 package com.krishna.TexasHamburger.controller;
 import com.krishna.TexasHamburger.Exception.FormatException;
+import com.krishna.TexasHamburger.Exception.ResourceAlreadyExists;
 import com.krishna.TexasHamburger.Exception.ResourceNotFoundException;
 import com.krishna.TexasHamburger.model.Category;
 import com.krishna.TexasHamburger.service.CategoryService;
@@ -32,7 +33,7 @@ public class CategoryController {
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @PostMapping("/addCategory")
-    public Category addCategories(@RequestBody Category category) throws FormatException {
+    public Category addCategories(@RequestBody Category category) throws ResourceAlreadyExists {
         logger.trace("add Categories Method accessed");
         return categoryService.addCategory(category);
     }

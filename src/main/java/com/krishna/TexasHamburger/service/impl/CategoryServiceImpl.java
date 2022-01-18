@@ -1,5 +1,6 @@
 package com.krishna.TexasHamburger.service.impl;
 import com.krishna.TexasHamburger.Exception.FormatException;
+import com.krishna.TexasHamburger.Exception.ResourceAlreadyExists;
 import com.krishna.TexasHamburger.Exception.ResourceNotFoundException;
 import com.krishna.TexasHamburger.model.Category;
 import com.krishna.TexasHamburger.model.LocationMenu;
@@ -26,14 +27,16 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private LocationMenuRepository locationMenuRepository;
     @Override
-    public Category addCategory(Category category) throws FormatException {
-        try{
-            return categoryRepository.save(category);
-        }
-        catch(Exception e)
-        {
-            throw new FormatException("Incorrect category format");
-        }
+    public Category addCategory(Category category) throws ResourceAlreadyExists {
+
+            Category category1 = categoryRepository.getCategoryByCategoryName(category.getCategoryName());
+            if(category1 == null)
+            {
+                return categoryRepository.save(category);
+            }
+            else{
+                throw new ResourceAlreadyExists("Category Already Exists");
+            }
 
     }
     public Optional<Category> deleteCategoryById(Long id)  {

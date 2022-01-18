@@ -1,5 +1,6 @@
 package com.krishna.TexasHamburger.service.impl;
 import com.krishna.TexasHamburger.Exception.FormatException;
+import com.krishna.TexasHamburger.Exception.ResourceAlreadyExists;
 import com.krishna.TexasHamburger.Exception.ResourceNotFoundException;
 import com.krishna.TexasHamburger.model.LocationMenu;
 import com.krishna.TexasHamburger.model.Locations;
@@ -48,8 +49,15 @@ public class MenuItemsServiceImpl implements MenuItemsService {
     }
 
     @Override
-    public void addMenuItems(MenuItems menuItems)  {
-        menuItemsRepository.save(menuItems);
+    public void addMenuItems(MenuItems menuItems) throws ResourceAlreadyExists {
+        MenuItems menuItems1 = menuItemsRepository.getMenuItemsByItemName(menuItems.getItemName());
+        if(menuItems1 == null)
+        {
+            menuItemsRepository.save(menuItems);
+        }
+        else{
+            throw new ResourceAlreadyExists("Menu Item Already Exists");
+        }
     }
     @Override
     public Page<MenuItems> getItemsByCategoryId(Long id,int offset, int pageSize) throws ResourceNotFoundException {

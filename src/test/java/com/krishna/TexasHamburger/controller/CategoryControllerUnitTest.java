@@ -1,5 +1,6 @@
 package com.krishna.TexasHamburger.controller;
 import com.krishna.TexasHamburger.Exception.FormatException;
+import com.krishna.TexasHamburger.Exception.ResourceAlreadyExists;
 import com.krishna.TexasHamburger.model.Category;
 import com.krishna.TexasHamburger.repository.CategoryRepository;
 import com.krishna.TexasHamburger.service.CategoryService;
@@ -41,7 +42,7 @@ class CategoryControllerUnitTest {
     }
 
     @Test
-    public void addCategory() throws FormatException {
+    public void addCategory() throws FormatException, ResourceAlreadyExists {
         Category category = new Category(25L,"Burger");
         when(categoryRepository.save(category)).thenReturn(category);
         assertEquals(category,categoryService.addCategory(category));
