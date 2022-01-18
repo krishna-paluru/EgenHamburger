@@ -21,8 +21,8 @@ public class DefaultUserService implements UserService {
     @Override
     public void addUsers(User user) throws addUserException {
         try{
-//            passwordEncoder = new BCryptPasswordEncoder();
-//            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
         }
         catch(Exception e)

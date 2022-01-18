@@ -40,11 +40,10 @@ public class ExecutionTimeInterceptor implements HandlerInterceptor {
         long total = System.currentTimeMillis()-time;
         System.out.print(request.getRequestURI());
         System.out.println("Time taken"+total);
+        ExecutionTime executionTime = new ExecutionTime();
         executionTime.setTime(total);
-        executionTime.setName(request.getRequestURI().toString());
+        executionTime.setName(request.getRequestURI());
         executionTimeRepository.save(executionTime);
-
-
     }
 }
 

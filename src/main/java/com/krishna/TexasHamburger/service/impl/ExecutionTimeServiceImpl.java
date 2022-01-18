@@ -15,7 +15,7 @@ public class ExecutionTimeServiceImpl implements ExecutionTimeService {
     @Override
     public List<ExecutionTime> getExecutionTimes() {
         List<ExecutionTime> times =  executionTimeRepository.findAll();
-        times.sort(Comparator.comparing(ExecutionTime::getTime));
+//        times.sort(Comparator.comparing(ExecutionTime::getTime));
         return times;
 
     }

@@ -5,6 +5,7 @@ import com.krishna.TexasHamburger.service.KafkaProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class KafkaProducerServiceImpl implements KafkaProducerService {
@@ -13,7 +14,7 @@ public class KafkaProducerServiceImpl implements KafkaProducerService {
 
     @Autowired
     private TodaysOrdersRepository todaysOrdersRepository;
-    private static final String topic = "orderss";
+    private static final String topic = "HamburgerOrders";
     @Override
     public void produce() {
         todaysOrdersRepository.findAll().forEach(x-> kafkaTemplate.send(topic,x));
