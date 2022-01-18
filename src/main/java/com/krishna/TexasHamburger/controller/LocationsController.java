@@ -2,6 +2,7 @@ package com.krishna.TexasHamburger.controller;
 import com.krishna.TexasHamburger.Exception.FormatException;
 import com.krishna.TexasHamburger.Exception.ResourceNotFoundException;
 import com.krishna.TexasHamburger.Exception.RestaurantNotFoundException;
+import com.krishna.TexasHamburger.model.LocationMenu;
 import com.krishna.TexasHamburger.model.Locations;
 import com.krishna.TexasHamburger.service.LocationMenuService;
 import com.krishna.TexasHamburger.service.LocationsService;
@@ -33,7 +34,6 @@ public class LocationsController {
     @ApiOperation(value = "To get the Location by Id", response = Location.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "Location Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @GetMapping("/get/{locationId}")
@@ -48,7 +48,6 @@ public class LocationsController {
     @ApiOperation(value = "To Add a new Location", response = Location.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "Location Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @PostMapping("/add")
@@ -60,7 +59,6 @@ public class LocationsController {
     @ApiOperation(value = "To get all the available locations present", response = Location.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "Location Not Added"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @GetMapping("/all/{offset}")
@@ -72,7 +70,6 @@ public class LocationsController {
     @ApiOperation(value = "To add MenuItems to a particular locations by locationId", response = Location.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "Menu Item Not Added"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @PostMapping("/addMenuItems/{locationId}")
@@ -85,7 +82,6 @@ public class LocationsController {
     @ApiOperation(value = "To Delete Location by Id", response = Location.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "Location Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @Transactional
@@ -98,7 +94,6 @@ public class LocationsController {
     @ApiOperation(value = "To Update Location by Id", response = Location.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "Location Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @PutMapping("updateLocation")
@@ -106,6 +101,11 @@ public class LocationsController {
     {
         logger.trace("updateLocations method accessed");
         return locationsService.updateLocation(location);
+    }
+
+    @GetMapping("getItemsbyLocation/{locationId}")
+    public List<LocationMenu> getItemsByLocation(@PathVariable Long locationId) throws ResourceNotFoundException {
+        return locationsService.getItemsByLocation(locationId);
     }
 
 

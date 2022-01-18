@@ -29,14 +29,14 @@ class LocationsControllerTest {
     public void getLocationById() throws ResourceNotFoundException {
         long id= 2;
         when(locationsRepository.findById(id)).thenReturn(Optional
-                .of(new Locations(2L,"Arlington","Summit Avenue","Arlington","Texas","76013",20
+                .of(new Locations(2L,"Arlington","Summit Avenue","Arlington","Texas","76013"
                         ,new HashSet<>(),new HashSet<>(),new HashSet<>())));
         assertEquals("Arlington",locationsService.getLocationById(id).get().getLocationName());
     }
     @Test
     public void addLocation() throws FormatException {
         Locations location = new Locations(2L,"Arlington","Summit Avenue","Arlington","Texas"
-                ,"76013",20,new HashSet<>(),new HashSet<>(),new HashSet<>());
+                ,"76013",new HashSet<>(),new HashSet<>(),new HashSet<>());
         when(locationsRepository.save(location)).thenReturn(location);
         assertEquals(location,locationsService.addLocations(location));
     }
@@ -45,9 +45,9 @@ class LocationsControllerTest {
     {
         when(locationsRepository.findAll())
                 .thenReturn(Stream.of(new Locations(2L,"Arlington","Summit Avenue"
-                                        ,"Arlington","Texas","76013",20,new HashSet<>(),new HashSet<>(),new HashSet<>())
+                                        ,"Arlington","Texas","76013",new HashSet<>(),new HashSet<>(),new HashSet<>())
                         ,new Locations(2L,"Arlington","Summit Avenue"
-                                        ,"Arlington","Texas","76013",20,new HashSet<>(),new HashSet<>(),new HashSet<>()))
+                                        ,"Arlington","Texas","76013",new HashSet<>(),new HashSet<>(),new HashSet<>()))
                         .collect(Collectors.toList()));
         assertEquals(2,locationsService.getLocations().size());
     }

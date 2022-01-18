@@ -1,6 +1,7 @@
 package com.krishna.TexasHamburger.service;
 import com.krishna.TexasHamburger.Exception.FormatException;
 import com.krishna.TexasHamburger.Exception.ResourceNotFoundException;
+import com.krishna.TexasHamburger.model.LocationMenu;
 import com.krishna.TexasHamburger.model.Locations;
 import com.krishna.TexasHamburger.model.OpenHour;
 import org.springframework.data.domain.Page;
@@ -14,8 +15,7 @@ public interface LocationsService {
     List<Locations> getLocations();
     Optional<Locations> getLocationById(Long id) throws ResourceNotFoundException;
      void deleteLocation(Long id);
-
     Page<Locations> getLocations(Integer offset, int pageSize);
     Locations updateLocation(Locations location);
-
+    List<LocationMenu> getItemsByLocation(Long locationId) throws ResourceNotFoundException;
 }

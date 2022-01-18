@@ -29,7 +29,7 @@ public class Locations implements Serializable {
         public String city;
         public String state;
         public String zipcode;
-        private int slotsAvailable;
+//        private int slotsAvailable;
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "locations", cascade = CascadeType.PERSIST)
         @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)

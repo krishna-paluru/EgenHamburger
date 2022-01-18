@@ -1,6 +1,8 @@
 package com.krishna.TexasHamburger.service.impl;
+import com.krishna.TexasHamburger.Exception.ResourceNotFoundException;
 import com.krishna.TexasHamburger.model.*;
 import com.krishna.TexasHamburger.repository.*;
+import com.krishna.TexasHamburger.service.LocationsService;
 import com.krishna.TexasHamburger.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ public class OrderServiceImpl implements OrderService {
     private LocationsRepository locationsRepository;
     @Autowired
     private OrderDetailsRepository orderDetailsRepository;
+    @Autowired
+    private LocationsService locationsService;
     LocalDate currentDate = LocalDate.now();
 
     @Autowired
@@ -50,13 +54,13 @@ public class OrderServiceImpl implements OrderService {
         order.assignUser(user);
         Set<OrderDetails> orderDetails = order.getOrderDetails();
         if(orderDetails != null){
-            orderDetails.stream().forEach(x->{
+            orderDetails.forEach(x->{
                 x.setUnitPrice(Double.valueOf(x.getItem().getPrice()));
                 x.setPrice(x.getQuantity() * x.getUnitPrice());
             });
             order.setTotalPrice(orderDetails.stream().mapToDouble(x->x.getPrice()).sum());
         }
-        order.getOrderDetails().stream().forEach(x -> x.assignOrder(order));
+        order.getOrderDetails().forEach(x -> x.assignOrder(order));
         return orderRepository.save(order);
     }
     @Override
@@ -82,5 +86,12 @@ public class OrderServiceImpl implements OrderService {
 //
 
         }
+
+    @Override
+    public List<Order> getOrdersByLocation(long locationId) throws ResourceNotFoundException {
+
+        Optional<Locations> location = locationsService.getLocationById(locationId);
+        return orderRepository.getOrdersByLocation_LocationId(locationId);
     }
+}
 

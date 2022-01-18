@@ -90,7 +90,17 @@ public class LocationsServiceImpl implements LocationsService {
         return locationsRepository.save(location);
     }
 
-
-
+    @Override
+    public List<LocationMenu> getItemsByLocation(Long locationId) throws ResourceNotFoundException {
+        Optional<Locations> location = locationsRepository.findById(locationId);
+        if(location.isPresent())
+        {
+            List<LocationMenu> locationMenus = locationMenuRepository.getLocationMenuByLocations_LocationId(locationId);
+            return locationMenus;
+        }
+        else{
+            throw new ResourceNotFoundException("No Location with Id - "+locationId);
+        }
+    }
 
 }

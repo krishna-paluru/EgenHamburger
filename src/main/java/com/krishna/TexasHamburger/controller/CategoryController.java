@@ -82,8 +82,13 @@ public class CategoryController {
         Category category = categoryService.deleteCategoryById(id)
                 .orElseThrow(()->new ResourceNotFoundException("No location with Id -"+ id));
         return category;
-
     }
+
+    @GetMapping("getCategoryById/{categoryId}")
+    public Category getCategoryById(@PathVariable Long categoryId) throws ResourceNotFoundException {
+        return categoryService.getCategoryById(categoryId);
+    }
+
 
 
 }

@@ -17,4 +17,6 @@ public interface CategoryService {
     public void  updateCategory(Category category) throws FormatException;
 
     Page<Category> getAll(int offset, int pageSize);
+
+    Category getCategoryById(Long categoryId) throws ResourceNotFoundException;
 }

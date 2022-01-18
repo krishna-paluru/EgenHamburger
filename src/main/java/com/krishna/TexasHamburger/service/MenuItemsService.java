@@ -10,7 +10,7 @@ import java.util.List;
 public interface MenuItemsService {
     public MenuItems deleteItemById(Long id) throws ResourceNotFoundException;
     public void addMenuItems(MenuItems menuItems) throws FormatException;
-    public Page<MenuItems> getItemsByCategoryId(Long id, int offset, int pageSize);
+    public Page<MenuItems> getItemsByCategoryId(Long id, int offset, int pageSize) throws ResourceNotFoundException;
     public List<MenuItems> getItemsByCategoryId(Long id);
 
     public MenuItems getByMenuItemsId(Long id) ;

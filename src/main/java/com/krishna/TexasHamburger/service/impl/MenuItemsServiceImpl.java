@@ -8,6 +8,7 @@ import com.krishna.TexasHamburger.repository.CategoryRepository;
 import com.krishna.TexasHamburger.repository.LocationMenuRepository;
 import com.krishna.TexasHamburger.repository.LocationsRepository;
 import com.krishna.TexasHamburger.repository.MenuItemsRepository;
+import com.krishna.TexasHamburger.service.CategoryService;
 import com.krishna.TexasHamburger.service.MenuItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,7 +22,7 @@ import java.util.Optional;
 @Service
 public class MenuItemsServiceImpl implements MenuItemsService {
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
     @Autowired
     private MenuItemsRepository menuItemsRepository;
 
@@ -51,10 +52,10 @@ public class MenuItemsServiceImpl implements MenuItemsService {
         menuItemsRepository.save(menuItems);
     }
     @Override
-    public Page<MenuItems> getItemsByCategoryId(Long id,int offset, int pageSize) {
+    public Page<MenuItems> getItemsByCategoryId(Long id,int offset, int pageSize) throws ResourceNotFoundException {
         Pageable page = PageRequest.of(offset,pageSize);
-        Page<MenuItems> menuItems = menuItemsRepository.getMenuItemsByCategory_CategoryId(id,page);
-        return menuItems;
+        categoryService.getCategoryById(id);
+        return menuItemsRepository.getMenuItemsByCategory_CategoryId(id,page);
     }
     @Override
     public List<MenuItems> getItemsByCategoryId(Long id) {
@@ -65,17 +66,7 @@ public class MenuItemsServiceImpl implements MenuItemsService {
     @Override
     public MenuItems getByMenuItemsId(Long id)  {
         return menuItemsRepository.getMenuItemById(id);
-
-
     }
-
-
-//    @Override
-//    public void addMenuItemToLocation(Long locationId, Long itemId) {
-//        Locations location = locationsRepository.findById(locationId).get();
-//        MenuItems menuItem = menuItemsRepository.findById(itemId).get();
-//        locationsRepository.save(location);
-//    }
 
     @Override
     public List<MenuItems> getAllItems() {
