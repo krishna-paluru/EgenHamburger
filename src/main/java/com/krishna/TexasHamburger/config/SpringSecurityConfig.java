@@ -14,9 +14,6 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private AuthenticationEntryPoint authenticationEntryPoint;
-
     @Autowired
     private UserDetailsService userDetailsService;
 

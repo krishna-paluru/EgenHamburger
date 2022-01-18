@@ -14,7 +14,7 @@ public class KafkaProducerServiceImpl implements KafkaProducerService {
 
     @Autowired
     private TodaysOrdersRepository todaysOrdersRepository;
-    private static final String topic = "HamburgerOrders";
+    private static final String topic = "Hamburger";
     @Override
     public void produce() {
         todaysOrdersRepository.findAll().forEach(x-> kafkaTemplate.send(topic,x));
