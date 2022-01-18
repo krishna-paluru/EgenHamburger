@@ -10,6 +10,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import static org.junit.Assert.assertEquals;
@@ -41,13 +43,14 @@ public class CategoryControllerIntegrationTest {
         assertEquals(category,categoryService.addCategory(category));
     }
 
-//    @Test
-//    public void deleteCategory() throws Exception {
-//        long id=25;
-//        when(categoryService.deleteCategoryById(id)).thenReturn();
-//        MvcResult mvc = mockMvc.perform(delete("/TexasHamburger/deleteById/")).andReturn();
-//        assertEquals("deleted","deleted");
-//    }
+    @Test
+    public void deleteCategory() throws Exception {
+        long id=25;
+        Category category = new Category(25L,"burger");
+        when(categoryService.deleteCategoryById(id)).thenReturn(Optional.of(category));
+        MvcResult mvc = mockMvc.perform(delete("/TexasHamburger/deleteById/")).andReturn();
+        assertEquals("deleted","deleted");
+    }
 
 
 
