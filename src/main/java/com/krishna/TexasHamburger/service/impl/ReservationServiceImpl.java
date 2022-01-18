@@ -58,8 +58,16 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public void deleteReservation(Long id) {
-        reservationRepository.deleteById(id);
+    public void deleteReservation(Long id) throws ResourceNotFoundException {
+        Optional<Reservation>  reservation = reservationRepository.findById(id);
+        if(reservation.isPresent())
+        {
+            reservationRepository.deleteById(id);
+        }
+        else{
+            throw new ResourceNotFoundException("No reservation with Id"+ id);
+
+        }
     }
 
     @Override
@@ -68,7 +76,8 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<Reservation> getReservationsByLocation(Long id) {
+    public List<Reservation> getReservationsByLocation(Long id) throws ResourceNotFoundException {
+        locationsService.getLocationById(id);
         return reservationRepository.getReservationByLocation_LocationId(id);
     }
 }

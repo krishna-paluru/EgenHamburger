@@ -24,7 +24,6 @@ public class ReservationController {
     @ApiOperation(value = "To Make a reservation to s particular location ", response = Reservation.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "MenuItem Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @PostMapping ("/makeReservations/{locationId}/{date}")
@@ -36,7 +35,6 @@ public class ReservationController {
 @ApiOperation(value = "To Update a reservation to the particular location ", response = Reservation.class)
 @ApiResponses(value = {
         @ApiResponse(code = 200, message = "OK"),
-        @ApiResponse(code = 204, message = "MenuItem Not Found"),
         @ApiResponse(code = 500, message = "Internal Server Error")
 })
     @PutMapping("updateReservation/{id}")
@@ -49,12 +47,10 @@ public class ReservationController {
     @ApiOperation(value = "To delete a reservation to the particular location ", response = Reservation.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "MenuItem Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @DeleteMapping("deleteReservation/{id}")
-    public void deleteReservation(@PathVariable Long id)
-    {
+    public void deleteReservation(@PathVariable Long id) throws ResourceNotFoundException {
         logger.trace("deleteReservation method accessed");
         reservationService.deleteReservation(id);
     }
@@ -62,7 +58,6 @@ public class ReservationController {
     @ApiOperation(value = "To get a reservations of all the location ", response = Reservation.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "MenuItem Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @GetMapping("/getReservations")
@@ -75,12 +70,10 @@ public class ReservationController {
     @ApiOperation(value = "To get a reservations of a particular location ", response = Reservation.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "MenuItem Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @GetMapping("/reservation/{locationId}")
-    public List<Reservation> getReservationByLocation(@PathVariable Long locationId)
-    {
+    public List<Reservation> getReservationByLocation(@PathVariable Long locationId) throws ResourceNotFoundException {
         logger.trace("getReservationByLocation method accessed");
         List<Reservation> reservations =  reservationService.getReservationsByLocation(locationId);
         try{

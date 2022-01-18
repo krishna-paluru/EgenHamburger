@@ -12,9 +12,9 @@ public interface ReservationService {
 //    public List<Reservation> getAllReservationsByLocation(Long id);
     public void updateReservation(Reservation reservation,Long id);
 
-   public void deleteReservation(Long id);
+   public void deleteReservation(Long id) throws ResourceNotFoundException;
 
     public List<Reservation> getReservations();
 
-    List<Reservation>getReservationsByLocation(Long id);
+    List<Reservation>getReservationsByLocation(Long id) throws ResourceNotFoundException;
 }

@@ -29,7 +29,6 @@ public class CategoryController {
     @ApiOperation(value = "To add a new category", response = Category.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "Category Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @PostMapping("/addCategory")
@@ -40,7 +39,6 @@ public class CategoryController {
     @ApiOperation(value = "To get all the Categories present ", response = Category.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "Category Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @GetMapping("/getAll/{offset}")
@@ -63,7 +61,6 @@ public class CategoryController {
     @ApiOperation(value = "To Update the Category", response = Category.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "Category Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @Transactional
@@ -76,7 +73,6 @@ public class CategoryController {
     @ApiOperation(value = "To Delete the Category", response = Category.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 204, message = "Category Not Found"),
             @ApiResponse(code = 500, message = "Internal Server Error")
     })
     @Transactional
