@@ -48,13 +48,19 @@ public class ReservationServiceImpl implements ReservationService {
                throw new ResourceNotFoundException("No Slots available with the Id "+locationId);
         }
     }
-    public void updateReservation(Reservation reservation,Long id)
-    {
+    public void updateReservation(Reservation reservation,Long id) throws ResourceNotFoundException {
         Reservation reserve = reservationRepository.findById(id).get();
-        reserve.setFirstName(reservation.getFirstName());
-        reserve.setLastName(reservation.getLastName());
-        reserve.setDate(reservation.getDate());
-        reservationRepository.save(reserve);
+        if(reserve != null)
+        {
+            reserve.setFirstName(reservation.getFirstName());
+            reserve.setLastName(reservation.getLastName());
+            reserve.setDate(reservation.getDate());
+            reservationRepository.save(reserve);
+        }
+        else{
+            throw new ResourceNotFoundException("No reservation with id - "+id);
+        }
+
     }
 
     @Override
@@ -62,6 +68,15 @@ public class ReservationServiceImpl implements ReservationService {
         Optional<Reservation>  reservation = reservationRepository.findById(id);
         if(reservation.isPresent())
         {
+            List<SlotsAvailable> slotsAvailable = slotsAvailableRepository.getSlotsAvailableByLocations_LocationId(reservation
+                    .get().getLocations().getLocationId());
+            slotsAvailable.forEach(x->{
+                if(x.getDate().equals(reservation.get().getDate()))
+                {
+                    x.setSlotsAvailable(x.getSlotsAvailable()+1);
+                    slotsAvailableRepository.save(x);
+                }
+            });
             reservationRepository.deleteById(id);
         }
         else{

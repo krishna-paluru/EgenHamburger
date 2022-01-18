@@ -40,7 +40,6 @@ com\krishna\TexasHamburger\service\impl\OrderServiceImpl.class
 com\krishna\TexasHamburger\service\KafkaProducerService.class
 com\krishna\TexasHamburger\service\impl\RestaurentMenuServiceImpl.class
 com\krishna\TexasHamburger\Exception\OrderNotFoundException.class
-com\krishna\TexasHamburger\model\OpenHours.class
 com\krishna\TexasHamburger\service\CategoryService.class
 com\krishna\TexasHamburger\repository\OrderRepository.class
 com\krishna\TexasHamburger\repository\SlotsAvailableRepository.class

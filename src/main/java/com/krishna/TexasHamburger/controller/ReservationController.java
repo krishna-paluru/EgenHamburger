@@ -38,8 +38,7 @@ public class ReservationController {
         @ApiResponse(code = 500, message = "Internal Server Error")
 })
     @PutMapping("updateReservation/{id}")
-    public void updateReservation(@RequestBody Reservation reservation,@PathVariable Long id)
-    {
+    public void updateReservation(@RequestBody Reservation reservation,@PathVariable Long id) throws ResourceNotFoundException {
         logger.trace("updateReservation method accessed");
         reservationService.updateReservation(reservation,id);
     }
